@@ -6,6 +6,7 @@ export const columns = [
     width: 100,
     editable: true,
     headerAlign: 'center',
+    valueGetter: (value) => Number(value),
     cellClassName: 'MuiDataGrid-cell--textCenter',
   },
   {
@@ -13,6 +14,7 @@ export const columns = [
     headerName: 'Carbohydrates (g)',
     width: 130,
     headerAlign: 'center',
+    valueGetter: (value) => Number(value),
     cellClassName: 'MuiDataGrid-cell--textCenter',
   },
   {
@@ -20,6 +22,7 @@ export const columns = [
     headerName: 'Proteins (g)',
     width: 100,
     headerAlign: 'center',
+    valueGetter: (value) => Number(value),
     cellClassName: 'MuiDataGrid-cell--textCenter',
   },
   {
@@ -27,6 +30,7 @@ export const columns = [
     headerName: 'Fats (g)',
     width: 80,
     headerAlign: 'center',
+    valueGetter: (value) => Number(value),
     cellClassName: 'MuiDataGrid-cell--textCenter',
   },
   {
@@ -34,6 +38,12 @@ export const columns = [
     headerName: 'Energy (cal)',
     width: 100,
     headerAlign: 'center',
+    valueGetter: (value) => Number(value),
     cellClassName: 'MuiDataGrid-cell--textCenter',
+  },
+  {
+    field: 'category',
+    headerName: 'Category',
+    width: 100,
   }
 ];

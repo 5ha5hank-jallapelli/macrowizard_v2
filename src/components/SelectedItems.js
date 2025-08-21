@@ -8,6 +8,14 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { MacroReferenceValuesContext } from '@/app/plan/page';
+import { useContext } from 'react';
+import { Button, Box } from '@mui/material';
+import HiddenTableFooter from './HiddenTableFooter';
+
+import DownloadIcon from '@mui/icons-material/Download';
+import exportToExcel from '@/lib/exportToExcel';
+import VitalsMetaData from './VitalsMetaData';
 
 export default function SelectedItems({ itemsList }) {
   const [selectedItems, setSelectedItems] = useState([])
@@ -16,6 +24,9 @@ export default function SelectedItems({ itemsList }) {
   const [totalProteins, setTotalProteins] = useState(0)
   const [totalFats, setTotalFats] = useState(0)
   const [totalEnergy, setTotalEnergy] = useState(0)
+
+  const { macroReferenceValues } = useContext(MacroReferenceValuesContext)
+  const { calorieCarbs, calorieProtein, calorieFats, totalCalories } = macroReferenceValues
 
   const uniqueCategories = new Set()
 
@@ -48,21 +59,33 @@ export default function SelectedItems({ itemsList }) {
   }, [])
 
   const calculateTotal = (arr, type) => {
-    return (arr.reduce((acc, item) => acc + item[type], 0)).toFixed(2)
+    const total = arr.reduce((acc, item) => Number(acc + item[type]), 0).toFixed(2)
+    return Number(total)
+  }
+
+  const totalMarkup = (value, referenceValue) => {
+    const diff = Math.round((referenceValue - value).toFixed(2))
+
+    return `${value} ${referenceValue > 0 ? `/ <span style="opacity: 0.5">${referenceValue}</span><br/>
+      <span style="color: ${diff > 0 ? 'green' : 'red'}">${diff > 0 ? `+${diff}` : diff}<span>` : ''}`
   }
 
   return (
-    <div style={{ width: '850px', height: 'calc(100vh - 159px)', marginInline: 'auto' }}>
-      <TableContainer component={Paper} sx={{height: 'calc(100vh - 159px)'}}>
-        <Table sx={{position: 'relative'}} aria-label="Selected Items" size='small'>
+    <Box sx={{ width: '850px', height: 'calc(100vh - 159px)', marginInline: 'auto' }}>
+      <Box sx={{display: 'flex', justifyContent: 'flex-end', padding: '0px'}}>
+        <Button id='btn-download' sx={{marginLeft: 'auto'}} onClick={() => exportToExcel()}><DownloadIcon /></Button>
+      </Box>
+      <TableContainer component={Paper} sx={{ height: 'calc(100vh - 230px)', boxShadow: 'none', border: '1px solid rgba(0,0,0,0.1)' }}>
+        <Table sx={{ position: 'relative' }} id="plan-table" aria-label="Selected Items" size='small'>
+          <VitalsMetaData />
           <TableHead>
             <TableRow sx={{position: 'sticky', top: '0px', zIndex: '10', backgroundColor: 'white'}}>
-              <TableCell sx={{ fontWeight: 600}}>Food Item</TableCell>
-              <TableCell sx={{ fontWeight: 600}} align='center'>Amount (g)</TableCell>
-              <TableCell sx={{ fontWeight: 600}} align='center'>Carbohydrates (g)</TableCell>
-              <TableCell sx={{ fontWeight: 600}} align='center'>Proteins (g)</TableCell>
-              <TableCell sx={{ fontWeight: 600}} align='center'>Fats (g)</TableCell>
-              <TableCell sx={{ fontWeight: 600}} align='center'>Energy (cal)</TableCell>
+              <TableCell className='fw-bold' sx={{ fontWeight: 600}}>Food Item</TableCell>
+              <TableCell className='item-column' sx={{ fontWeight: 600}} align='center'>Amount (g)</TableCell>
+              <TableCell className='item-column' sx={{ fontWeight: 600}} align='center'>Carbohydrates (g)</TableCell>
+              <TableCell className='item-column' sx={{ fontWeight: 600}} align='center'>Proteins (g)</TableCell>
+              <TableCell className='item-column' sx={{ fontWeight: 600}} align='center'>Fats (g)</TableCell>
+              <TableCell className='item-column' sx={{ fontWeight: 600}} align='center'>Energy (cal)</TableCell>
             </TableRow>
           </TableHead>
           <TableBody sx={{position: 'relative'}}>
@@ -72,13 +95,13 @@ export default function SelectedItems({ itemsList }) {
               return (
                 <Fragment key={index}>
                   {isFirst && (
-                    <TableRow className={`row--${row.category}`} key={`header__${row.category}`}>
-                      <TableCell sx={{ fontWeight: 600, fontStyle: 'italic' }}>{CATEGORIES[row.category]}</TableCell>
-                      <TableCell> </TableCell>
-                      <TableCell> </TableCell>
-                      <TableCell> </TableCell>
-                      <TableCell> </TableCell>
-                      <TableCell> </TableCell>
+                    <TableRow key={`header__${row.category}`}>
+                      <TableCell className={`row--${row.category}`} sx={{ fontWeight: 600, fontStyle: 'italic' }}>{CATEGORIES[row.category]}</TableCell>
+                      <TableCell className={`row--${row.category}`}> </TableCell>
+                      <TableCell className={`row--${row.category}`}> </TableCell>
+                      <TableCell className={`row--${row.category}`}> </TableCell>
+                      <TableCell className={`row--${row.category}`}> </TableCell>
+                      <TableCell className={`row--${row.category}`}> </TableCell>
                     </TableRow>
                   )}
                   <TableRow
@@ -87,26 +110,33 @@ export default function SelectedItems({ itemsList }) {
                     <TableCell component="th" scope="row">
                       {row.item}
                     </TableCell>
-                    <TableCell align="center">{row.quantity}</TableCell>
-                    <TableCell align="center">{row.carbohydrates || 0}</TableCell>
-                    <TableCell align="center">{row.proteins}</TableCell>
-                    <TableCell align="center">{row.fats}</TableCell>
-                    <TableCell align="center">{row.energy}</TableCell>
+                    <TableCell className='cell-body' align="center">{row.quantity}</TableCell>
+                    <TableCell className='cell-body' align="center">{row.carbohydrates || 0}</TableCell>
+                    <TableCell className='cell-body' align="center">{row.proteins}</TableCell>
+                    <TableCell className='cell-body' align="center">{row.fats}</TableCell>
+                    <TableCell className='cell-body' align="center">{row.energy}</TableCell>
                   </TableRow>
                 </Fragment>
               )
             })}
-            <TableRow sx={{position: 'sticky', bottom: '0px', zIndex: '10', backgroundColor: 'gold', }}>
+            <HiddenTableFooter
+              totalQuantity={totalQuantity}
+              totalCarbohydrates={totalCarbohydrates}
+              totalProteins={totalProteins}
+              totalFats={totalFats}
+              totalEnergy={totalEnergy}
+            />
+            <TableRow className='xlxs-hide' sx={{position: 'sticky', bottom: '-1px', zIndex: '10', backgroundColor: 'gold' }}>
               <TableCell sx={{fontWeight: 600}}>Total</TableCell>
               <TableCell align='center' sx={{fontWeight: 600}}>{totalQuantity}</TableCell>
-              <TableCell align='center' sx={{fontWeight: 600}}>{totalCarbohydrates}</TableCell>
-              <TableCell align='center' sx={{fontWeight: 600}}>{totalProteins}</TableCell>
-              <TableCell align='center' sx={{fontWeight: 600}}>{totalFats}</TableCell>
-              <TableCell align='center' sx={{fontWeight: 600}}>{totalEnergy}</TableCell>
+              <TableCell align='center' sx={{ fontWeight: 600 }} dangerouslySetInnerHTML={{__html: totalMarkup(totalCarbohydrates, calorieCarbs)}}></TableCell>
+              <TableCell align='center' sx={{fontWeight: 600}} dangerouslySetInnerHTML={{__html: totalMarkup(totalProteins, calorieProtein)}}></TableCell>
+              <TableCell align='center' sx={{fontWeight: 600}} dangerouslySetInnerHTML={{__html: totalMarkup(totalFats, calorieFats)}}></TableCell>
+              <TableCell align='center' sx={{ fontWeight: 600 }} dangerouslySetInnerHTML={{__html: totalMarkup(totalEnergy, totalCalories)}}></TableCell>
             </TableRow>
           </TableBody>
         </Table>
       </TableContainer>
-    </div>
+    </Box>
   )
 }

@@ -71,6 +71,50 @@ a {
   background-color: rgb(240, 248, 255) !important;
 }
 
+.btn-category {
+  background-color: unset !important;
+}
+
+.btn-category.active {
+  text-decoration: underline;
+  text-underline-offset: 5px;
+  pointer-events: none;
+  transition: all 0.2s ease;
+  color: #1976d2 !important;
+  font-weight: 600;
+}
+
+.btn-category:hover {
+  text-decoration: underline !important;
+  text-underline-offset: 5px;
+  color: #1976d2 !important;
+}
+
+.btn-category:nth-last-of-type(1) {
+  border-right: unset;
+}
+
+.MuiRadioGroup-root .MuiTypography-root {
+  font-size: 14px !important;
+  transform: translateY(1px);
+}
+
+.MuiOutlinedInput-input {
+  padding: 6px 8px !important;
+}
+
+.MuiFormControl-root, .MuiFormHelperText-root {
+  margin: 0 !important;
+}
+
+.MuiBox-root {
+  padding: 0 !important;
+}
+
+#plan-tabpanel-2 {
+  padding: 0 !important;
+}
+
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
