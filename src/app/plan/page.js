@@ -100,7 +100,7 @@ export default function Plan() {
           <VitalsInfo />
           <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
             <Tabs value={value} onChange={handleChange} aria-label="MacroWizard" centered>
-              <Tab sx={{fontWeight: 500, textTransform: 'capitalize' }} label="Macros/Vitals" {...a11yProps(0)} />
+              <Tab sx={{fontWeight: 500, textTransform: 'capitalize' }} label="Vitals/Macros" {...a11yProps(0)} />
               <Tab sx={{fontWeight: 500, textTransform: 'capitalize' }} label="Create Plan" {...a11yProps(1)} />
               <Tab sx={{fontWeight: 500, textTransform: 'capitalize' }} label="View Plan" {...a11yProps(2)} disabled={ !selectedItemsIds.size } />
             </Tabs>

@@ -20,10 +20,10 @@ export default function MacroAndVitals() {
   return (
     <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 1 }}>
       <Grid size={6}>
-        <Item sx={{ boxShadow: 'none', border: '1px solid rgba(0,0,0,0.1)' }}><Macros /></Item>
+        <Item sx={{ boxShadow: 'none', border: '1px solid rgba(0,0,0,0.1)' }}><Vitals /></Item>
       </Grid>
       <Grid size={6}>
-        <Item sx={{ boxShadow: 'none', border: '1px solid rgba(0,0,0,0.1)' }}><Vitals /></Item>
+        <Item sx={{ boxShadow: 'none', border: '1px solid rgba(0,0,0,0.1)' }}><Macros /></Item>
       </Grid>
     </Grid>
   )
