@@ -106,9 +106,9 @@ export default function FoodItemListing({
           ))}
         </Box>
         <ClearFilterButton filterModel={filterModel} handleClearFilter={clearFilter} show={filterModel.items.length} />
-        {/* <Button onClick={() => resetTableData()} variant='contained' size='small' sx={{ minWidth: 'unset', padding: '2px 8px 4px' }}>
+        <Button onClick={() => resetTableData()} variant='contained' size='small' sx={{ minWidth: 'unset', padding: '2px 8px 4px' }}>
           <RestartAltIcon fontSize='16px' />
-        </Button> */}
+        </Button>
       </Box>
       <Box sx={{ width: '850px', marginInline: 'auto', height: "calc(100vh - 251px)" }}>
         <DataGrid

@@ -72,6 +72,7 @@ export default function Plan() {
     setExchangeListItems(data.foodItems)
     setSelectedItemsIds(new Set())
     localStorage.clear();
+    localStorage.setItem("exchangeList", JSON.stringify(data.foodItems))
   }
 
   useEffect(() => {
