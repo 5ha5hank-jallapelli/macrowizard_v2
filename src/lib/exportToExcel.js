@@ -125,6 +125,21 @@ export default function exportToExcel() {
         if (cellElement.classList.contains("row--milkProducts")) {
         cell.s = {...bold, fill: { fgColor: { rgb: 'F0F8FF'}}}
         }
+        if (cellElement.classList.contains("row--rootsAndTubers")) {
+        cell.s = {...bold, fill: { fgColor: { rgb: 'fff8dc'}}}
+        }
+        if (cellElement.classList.contains("row--condimentsSpicesFresh")) {
+        cell.s = {...bold, fill: { fgColor: { rgb: 'ccffcc'}}}
+        }
+        if (cellElement.classList.contains("row--condimentsSpicesDry")) {
+        cell.s = {...bold, fill: { fgColor: { rgb: 'faebd7'}}}
+        }
+        if (cellElement.classList.contains("row--miscellaneousFoods")) {
+        cell.s = {...bold, fill: { fgColor: { rgb: 'bdb8e0'}}}
+        }
+        if (cellElement.classList.contains("row--sugars")) {
+        cell.s = {...bold, fill: { fgColor: { rgb: 'd5ff95'}}}
+        }
         if (cellElement.classList.contains("h-start")) {
           cell.s = {...hStart}
         }

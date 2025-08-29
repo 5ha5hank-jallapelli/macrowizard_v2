@@ -83,19 +83,25 @@ export default function FoodItemListing({
   const categories = [
     { id: 'cereals', label: 'Cereals' },
     { id: 'pulses', label: 'Pulses' },
+    { id: 'vegetables', label: 'Vegetables' },
+    { id: 'fruits', label: 'Fruits' },
+    { id: 'rootsAndTubers', label: 'Roots and Tubers' },
+    { id: 'condimentsSpicesFresh', label: 'Spices (Fresh)' },
+    { id: 'condimentsSpicesDry', label: 'Spices (Dry)' },
     { id: 'nutsAndOilseeds', label: 'Nuts & Oil seeds' },
+    { id: 'sugars', label: 'Sugars' },
+    { id: 'mushrooms', label: 'Mushrooms' },
+    { id: 'miscellaneousFoods', label: 'Miscellaneous Foods' },
+    { id: 'milkProducts', label: 'Milk Products' },
     { id: 'meatAndPoultry', label: 'Meat & Poultry' },
     { id: 'seafood', label: 'Seafood' },
-    { id: 'vegetables', label: 'Vegetables' },
-    { id: 'mushrooms', label: 'Mushrooms' },
-    { id: 'fruits', label: 'Fruits' },
-    { id: 'milkProducts', label: 'Milk Products' }
+
   ]
 
   return (
     <>
       <Box sx={{display: 'flex', marginBottom: '10px', justifyContent: 'space-between', maxWidth: '848px', marginInline: 'auto'}}>
-        <Box sx={{ display: 'flex' }}>
+        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: '10px 0', maxWidth: '720px' }}>
           {categories.map(category => (
             <CategoryFilterButton
               key={category.id}

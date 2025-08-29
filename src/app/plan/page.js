@@ -77,7 +77,7 @@ export default function Plan() {
 
   useEffect(() => {
     (async () => {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL || ''}/foodItems.json`)
+      const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL || ''}/ifct_food_items.json`)
       const data = await res.json()
 
       setData(data)

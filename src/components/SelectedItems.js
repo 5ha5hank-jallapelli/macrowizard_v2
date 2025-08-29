@@ -39,7 +39,12 @@ export default function SelectedItems({ itemsList }) {
     seafood: "Seafood",
     mushrooms: "Mushrooms",
     fruits: "Fruits",
-    milkProducts: "Milk and Milk Products"
+    milkProducts: "Milk and Milk Products",
+    rootsAndTubers: "Roots and Tubers",
+    condimentsSpicesFresh: "Condiments and Spices (Fresh)",
+    condimentsSpicesDry: "Condiments and Spices (Dry)",
+    sugars: "Sugar",
+    miscellaneousFoods: "Miscellaneous Foods"
   }
 
   useEffect(() => {
