@@ -76,7 +76,7 @@ export default function SelectedItems({ itemsList }) {
   }
 
   return (
-    <Box sx={{ width: '850px', height: 'calc(100vh - 159px)', marginInline: 'auto' }}>
+    <Box sx={{ width: '900px', height: 'calc(100vh - 159px)', marginInline: 'auto' }}>
       <Box sx={{display: 'flex', justifyContent: 'flex-end', padding: '0px'}}>
         <Button id='btn-download' sx={{marginLeft: 'auto'}} onClick={() => exportToExcel()}><DownloadIcon /></Button>
       </Box>
